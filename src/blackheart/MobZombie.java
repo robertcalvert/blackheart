@@ -22,9 +22,9 @@ import org.lwjgl.util.vector.Vector3f;
  *
  * @author rob
  */
-public class MobZombie extends IMob {
+public final class MobZombie extends IMob {
 
-    private final int health_maximum = 5;
+    private final int health_maximum = 10;
     private int state = 0;
     private final TextureUV[] texture;
     private final int textures = 7;
@@ -35,13 +35,13 @@ public class MobZombie extends IMob {
     private long animation_timer = Misc.time();
     private boolean dead = false;
     private boolean IRemove = false;
-    private final int damage = 5;
+    private final int damage = 10;
     private final int bite_speed = 500;
     private long bite_timer = Misc.time();
 
     public MobZombie(Level level, Vector3f _position) {
         super(level, _position);
-        speed(Level.grid_size * 0.5f);
+        speed(Level.grid_size * 1.25f);
         size(new Vector3f(Level.grid_size / 2f,
                 Level.grid_size / 1.75f,
                 Level.grid_size / 2));
@@ -74,6 +74,7 @@ public class MobZombie extends IMob {
                 if (state == textures_walking + textures_dying + 1) {
                     IRemove = true;
                     state -= 1;
+                    _level.objects_dynamic.add(new FloorBlood(_level, position()));
                 }
             }
         } else {

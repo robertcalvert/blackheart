@@ -22,7 +22,7 @@ import org.lwjgl.util.vector.Vector3f;
  *
  * @author rob
  */
-public class MobPrisoner extends IMob {
+public final class MobPrisoner extends IMob {
 
     private final int health_maximum = 15;
     private boolean following;
@@ -73,6 +73,7 @@ public class MobPrisoner extends IMob {
                 if (state == textures_walking + textures_dying + 1) {
                     IRemove = true;
                     state -= 1;
+                    _level.objects_dynamic.add(new FloorBlood(_level, position()));
                 }
             }
         } else {

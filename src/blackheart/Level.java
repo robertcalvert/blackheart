@@ -33,6 +33,8 @@ public final class Level {
 
     public static final float grid_size = 1f;
     public static final float texture_bleed_offset = 0.0004f;
+     private float floorblood_offset = texture_bleed_offset;
+    private float floorblood_offset_bump = 0.0001f;
     public final StateGame _game;
     public final MobBarry _barry;
     private Armoury _start_armoury;
@@ -90,6 +92,7 @@ public final class Level {
     }
 
     private void load_objects() throws Exception {
+        floorblood_offset = texture_bleed_offset;
         objects_static = new ArrayList<ILevelObject>();
         objects_dynamic = new ArrayList<ILevelObject>();
         load_layer(1); // Floor
@@ -232,7 +235,11 @@ public final class Level {
 
         _barry.tick();
 
-        Collections.sort(objects_dynamic, this.sort_objects);
+        try {
+            Collections.sort(objects_dynamic, this.sort_objects);
+        } catch (Exception ex) {
+            Output.error(ex.getMessage());
+        }
 
         if (Debug.collision_boxs) {
             _game._core._display.flush_texture();
@@ -295,6 +302,21 @@ public final class Level {
         public int compare(ILevelObject object1, ILevelObject object2) {
             Double distance1 = object1.player_distance();
             Double distance2 = object2.player_distance();
+            // Always push FloorBloods back in the distance stack so that they are rendered first
+            if (object1 instanceof FloorBlood) {
+                distance1 = distance2 + 0.1f;
+            }
+            if (object2 instanceof FloorBlood) {
+                distance2 = distance1 + 0.1f;
+            }
+            // Always push IDoors back in the distance stack so that they are rendered first
+            // This is behind the FloorBloods
+            if (object1 instanceof IDoor) {
+                distance1 = distance2 + 0.1f;
+            }
+            if (object2 instanceof IDoor) {
+                distance2 = distance1 + 0.1f;
+            }
             return distance2.compareTo(distance1);
         }
     };
@@ -350,5 +372,12 @@ public final class Level {
             }
         }
         return null;
+    }
+    
+    // Used to stack the layers better
+    // May not work well on some cards.....
+    public float floorblood_offset() {
+        floorblood_offset += floorblood_offset_bump;
+        return floorblood_offset;
     }
 }

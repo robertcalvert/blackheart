@@ -23,7 +23,7 @@ public final class WeaponShotgun implements IWeapon {
 
     private int usages = 0;
     private final int damage = 15;
-    private final float range = 10;
+    private final float range = 3;
     private boolean inuse = false;
     private final Armoury _armoury;
     private int state = 0;

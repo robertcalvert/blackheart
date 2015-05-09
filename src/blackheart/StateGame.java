@@ -13,9 +13,6 @@
  */
 package blackheart;
 
-import java.io.File;
-import java.net.URL;
-
 /**
  *
  * @author rob

@@ -24,7 +24,7 @@ import org.newdawn.slick.util.BufferedImageUtil;
  *
  * @author rob
  */
-public class TextureLibrary {
+public final class TextureLibrary {
 
     private final int filter = GL11.GL_NEAREST;
     public final Texture game_atlas;

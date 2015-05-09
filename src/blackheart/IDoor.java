@@ -116,6 +116,7 @@ public class IDoor implements ICollidable {
 
     private void render_front() {
         TextureUV _texture;
+        float offset = -Level.texture_bleed_offset;
         if (parallel) {
             _texture = texture_face;
         } else {
@@ -123,35 +124,39 @@ public class IDoor implements ICollidable {
         }
         GL11.glNormal3f(0f, 0f, 1f);
         GL11.glTexCoord2f(_texture.getU(), _texture.getV2());
-        GL11.glVertex3f(-size + position.getX(), -size + position.getY(), size + position.getZ() - Level.texture_bleed_offset);
+        GL11.glVertex3f(-size + position.getX(), -size + position.getY(), size + position.getZ() + offset);
         GL11.glTexCoord2f(_texture.getU2(), _texture.getV2());
-        GL11.glVertex3f(size + position.getX(), -size + position.getY(), size + position.getZ() - Level.texture_bleed_offset);
+        GL11.glVertex3f(size + position.getX(), -size + position.getY(), size + position.getZ() + offset);
         GL11.glTexCoord2f(_texture.getU2(), _texture.getV());
-        GL11.glVertex3f(size + position.getX(), size + position.getY(), size + position.getZ() - Level.texture_bleed_offset);
+        GL11.glVertex3f(size + position.getX(), size + position.getY(), size + position.getZ() + offset);
         GL11.glTexCoord2f(_texture.getU(), _texture.getV());
-        GL11.glVertex3f(-size + position.getX(), size + position.getY(), size + position.getZ() - Level.texture_bleed_offset);
+        GL11.glVertex3f(-size + position.getX(), size + position.getY(), size + position.getZ() + offset);
     }
 
     private void render_back() {
         TextureUV _texture;
+        float offset;
         if (parallel) {
             _texture = texture_face;
+            offset = Level.texture_bleed_offset;
         } else {
             _texture = texture_side;
+            offset = -Level.texture_bleed_offset;
         }
         GL11.glNormal3f(0f, 0f, -1f);
         GL11.glTexCoord2f(_texture.getU2(), _texture.getV2());
-        GL11.glVertex3f(-size + position.getX(), -size + position.getY(), -size + position.getZ() + Level.texture_bleed_offset);
+        GL11.glVertex3f(-size + position.getX(), -size + position.getY(), -size + position.getZ() + offset);
         GL11.glTexCoord2f(_texture.getU2(), _texture.getV());
-        GL11.glVertex3f(-size + position.getX(), size + position.getY(), -size + position.getZ() + Level.texture_bleed_offset);
+        GL11.glVertex3f(-size + position.getX(), size + position.getY(), -size + position.getZ() + offset);
         GL11.glTexCoord2f(_texture.getU(), _texture.getV());
-        GL11.glVertex3f(size + position.getX(), size + position.getY(), -size + position.getZ() + Level.texture_bleed_offset);
+        GL11.glVertex3f(size + position.getX(), size + position.getY(), -size + position.getZ() + offset);
         GL11.glTexCoord2f(_texture.getU(), _texture.getV2());
-        GL11.glVertex3f(size + position.getX(), -size + position.getY(), -size + position.getZ() + Level.texture_bleed_offset);
+        GL11.glVertex3f(size + position.getX(), -size + position.getY(), -size + position.getZ() + offset);
     }
 
     private void render_left() {
         TextureUV _texture;
+        float offset = Level.texture_bleed_offset;
         if (parallel) {
             _texture = texture_side;
         } else {
@@ -159,31 +164,34 @@ public class IDoor implements ICollidable {
         }
         GL11.glNormal3f(-1, 0, 0);
         GL11.glTexCoord2f(_texture.getU(), _texture.getV2());
-        GL11.glVertex3f(-size + position.getX() + Level.texture_bleed_offset, -size + position.getY(), -size + position.getZ());
+        GL11.glVertex3f(-size + position.getX() + offset, -size + position.getY(), -size + position.getZ());
         GL11.glTexCoord2f(_texture.getU2(), _texture.getV2());
-        GL11.glVertex3f(-size + position.getX() + Level.texture_bleed_offset, -size + position.getY(), size + position.getZ());
+        GL11.glVertex3f(-size + position.getX() + offset, -size + position.getY(), size + position.getZ());
         GL11.glTexCoord2f(_texture.getU2(), _texture.getV());
-        GL11.glVertex3f(-size + position.getX() + Level.texture_bleed_offset, size + position.getY(), size + position.getZ());
+        GL11.glVertex3f(-size + position.getX() + offset, size + position.getY(), size + position.getZ());
         GL11.glTexCoord2f(_texture.getU(), _texture.getV());
-        GL11.glVertex3f(-size + position.getX() + Level.texture_bleed_offset, size + position.getY(), -size + position.getZ());
+        GL11.glVertex3f(-size + position.getX() + offset, size + position.getY(), -size + position.getZ());
     }
 
     private void render_right() {
         TextureUV _texture;
+        float offset;
         if (parallel) {
             _texture = texture_side;
+            offset = -Level.texture_bleed_offset;
         } else {
             _texture = texture_face;
+            offset = Level.texture_bleed_offset;
         }
         GL11.glNormal3f(1, 0, 0);
         GL11.glTexCoord2f(_texture.getU2(), _texture.getV2());
-        GL11.glVertex3f(size + position.getX() - Level.texture_bleed_offset, -size + position.getY(), -size + position.getZ());
+        GL11.glVertex3f(size + position.getX() - offset, -size + position.getY(), -size + position.getZ());
         GL11.glTexCoord2f(_texture.getU2(), _texture.getV());
-        GL11.glVertex3f(size + position.getX() - Level.texture_bleed_offset, size + position.getY(), -size + position.getZ());
+        GL11.glVertex3f(size + position.getX() - offset, size + position.getY(), -size + position.getZ());
         GL11.glTexCoord2f(_texture.getU(), _texture.getV());
-        GL11.glVertex3f(size + position.getX() - Level.texture_bleed_offset, size + position.getY(), size + position.getZ());
+        GL11.glVertex3f(size + position.getX() - offset, size + position.getY(), size + position.getZ());
         GL11.glTexCoord2f(_texture.getU(), _texture.getV2());
-        GL11.glVertex3f(size + position.getX() - Level.texture_bleed_offset, -size + position.getY(), size + position.getZ());
+        GL11.glVertex3f(size + position.getX() - offset, -size + position.getY(), size + position.getZ());
     }
 
     private void render_surround() {

@@ -23,7 +23,7 @@ import org.newdawn.slick.openal.Audio;
  *
  * @author rob
  */
-public class Button {
+public final class Button {
 
     private final Vector2f position;
     private final Vector2f size;

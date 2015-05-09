@@ -56,7 +56,6 @@ public final class Core {
         _game_level_complete = new StateGameLevelComplete(this);
         _game_winner = new StateGameWinner(this);
         state(_title);
-        _display.resizable(_display.start_resizable);
     }
 
     public void state(IState new_state) {

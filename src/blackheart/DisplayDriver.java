@@ -31,9 +31,8 @@ public final class DisplayDriver {
 
     private final int framerate = 60;
     private boolean sync = true;
-    private final int start_height = 540;
-    private final int start_width = 960;
-    public final boolean start_resizable = false; // Decided against this!
+    private final int height = 540;
+    private final int width = 960;
     private int fps_count;
     private int fps;
     private long fps_previous = Misc.time();
@@ -54,12 +53,12 @@ public final class DisplayDriver {
 
     private void init_display() throws Exception {
         set_icon();
-        Display.setDisplayMode(new DisplayMode(start_width, start_height));
+        Display.setDisplayMode(new DisplayMode(width, height));
         Display.setTitle(About.title);
         Display.setVSyncEnabled(true);
         Display.create();
     }
-    
+
     private void set_icon() throws Exception {
         PNGImageData icon16x16 = new PNGImageData();
         PNGImageData icon32x32 = new PNGImageData();
@@ -73,25 +72,19 @@ public final class DisplayDriver {
     }
 
     private void init_GL() {
-        GL11.glMatrixMode(GL11.GL_PROJECTION);
-        GL11.glLoadIdentity();
-        GLU.gluPerspective(60.0f, ((float) Display.getWidth()) / ((float) Display.getHeight()), 0.1f, 200.0f);
-        GL11.glMatrixMode(GL11.GL_MODELVIEW);
-        GL11.glLoadIdentity();
         GL11.glClearColor(0.1F, 0.1F, 0.1F, 1.0F);
-        GL11.glClearDepth(1.0f);
-        GL11.glEnable(GL11.GL_DEPTH_TEST);
-        GL11.glDepthFunc(GL11.GL_LEQUAL);
-        GL11.glHint(GL11.GL_PERSPECTIVE_CORRECTION_HINT, GL11.GL_NICEST);
         GL11.glEnable(GL11.GL_BLEND);
         GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+        GL11.glMatrixMode(GL11.GL_PROJECTION);
+        GL11.glLoadIdentity();
+        GLU.gluPerspective(60.0f, ((float) Display.getWidth()) / ((float) Display.getHeight()), 0.1f, 40.0f);
     }
 
     public void mode_2D() {
         GL11.glMatrixMode(GL11.GL_PROJECTION);
         GL11.glPushMatrix();
         GL11.glLoadIdentity();
-        GL11.glOrtho(0, Display.getWidth(), Display.getHeight(), 0, -1, 1);
+        GL11.glOrtho(0, Display.getWidth(), Display.getHeight(), 0, 0, 1);
         GL11.glDisable(GL11.GL_DEPTH_TEST);
         GL11.glMatrixMode(GL11.GL_MODELVIEW);
         GL11.glPushMatrix();
@@ -111,15 +104,6 @@ public final class DisplayDriver {
 
     public void prepare() {
         GL11.glClear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT);
-        if (Display.wasResized()) {
-            GL11.glViewport(0, 0, Display.getWidth(), Display.getHeight());
-            GL11.glMatrixMode(GL11.GL_PROJECTION);
-            GL11.glLoadIdentity();
-            GLU.gluPerspective(60.0f, ((float) Display.getWidth()) / ((float) Display.getHeight()), 0.1f, 200.0f);
-            GL11.glMatrixMode(GL11.GL_MODELVIEW);
-            GL11.glLoadIdentity();
-            Output.info("Display resized - " + Display.getWidth() + "x" + Display.getHeight());
-        }
     }
 
     public void update() {

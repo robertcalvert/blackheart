@@ -56,7 +56,7 @@ public final class Armoury {
                 return;
             }
         }
-        weapon = armoury.get(0);
+        weapon = armoury.get(knife);
     }
     
     @Override

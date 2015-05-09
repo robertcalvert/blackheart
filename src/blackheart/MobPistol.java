@@ -22,10 +22,11 @@ import org.lwjgl.util.vector.Vector3f;
  *
  * @author rob
  */
-public class MobPistol extends IMob {
+public final class MobPistol extends IMob {
 
     private final int health_maximum = 15;
     private boolean attacking;
+    private final int attacking_range = 3;
     private boolean shooting = false;
     private final int damage = 2;
     private int state = 0;
@@ -43,10 +44,11 @@ public class MobPistol extends IMob {
     private boolean IRemove = false;
     private final int raypick_delay = 500; // improve fps
     private long raypick_timer = Misc.time();
+    private boolean shoot_overide;
 
     public MobPistol(Level level, Vector3f _position) {
         super(level, _position);
-        speed(Level.grid_size * 1);
+        speed(Level.grid_size * 1f);
         size(new Vector3f(Level.grid_size / 2f,
                 Level.grid_size / 1.75f,
                 Level.grid_size / 2));
@@ -76,6 +78,9 @@ public class MobPistol extends IMob {
             ray_pick();
             raypick_timer = Misc.time() + raypick_delay;
         }
+        if (pain() & !shoot_overide) {
+            shoot_overide = true;
+        }
         if (dead) {
             if (state < textures_walking + textures_shooting) {
                 state = textures_walking + textures_shooting;
@@ -87,10 +92,25 @@ public class MobPistol extends IMob {
                     IRemove = true;
                     state -= 1;
                     _level.objects_dynamic.add(new CollectablePistolAmmo(_level, camera()));
+                    _level.objects_dynamic.add(new FloorBlood(_level, position()));
                 }
             }
         } else {
-            if (attacking & ray_picker().object().equals(_level._barry)) {
+            if (!shoot_overide & ((attacking & ray_picker().object() != _level._barry)
+                    | (ray_picker().object() == _level._barry & player_distance() > attacking_range))) {
+                attacking = true;
+                move_forward();
+                if (state > textures_walking) {
+                    animation_timer = Misc.time();
+                }
+                if (Misc.time() >= animation_timer) {
+                    state += 1;
+                    animation_timer = Misc.time() + animation_speed_walking;
+                    if (state > textures_walking) {
+                        state = 1;
+                    }
+                }
+            } else if (attacking & ray_picker().object().equals(_level._barry)) {
                 if (Misc.time() >= animation_timer) {
                     if (!shooting) {
                         state = textures_walking + textures_shooting;
@@ -107,24 +127,10 @@ public class MobPistol extends IMob {
                         shooting = false;
                     }
                 }
-            } else if (attacking & ray_picker().object() != _level._barry) {
-                attacking = true;
-                move_forward();
-                if (state > textures_walking) {
-                    animation_timer = Misc.time();
-                }
-                if (Misc.time() >= animation_timer) {
-                    state += 1;
-                    animation_timer = Misc.time() + animation_speed_walking;
-                    if (state > textures_walking) {
-                        state = 1;
-                    }
-                }
             } else if (ray_picker().object().equals(_level._barry)) {
                 attacking = true;
-            } else {
-                attacking = false;
-                state = 0;
+            } else if (ray_picker().object() != _level._barry) {
+                shoot_overide = false;
             }
             if (health() <= 0) {
                 animation_timer = Misc.time();

@@ -42,6 +42,7 @@ public class IMob implements ICollidable {
     private final RayPicker ray_picker;
     private int health;
     private int health_maximum;
+    private boolean pain;
 
     public IMob(Level level, Vector3f _position) {
         _level = level;
@@ -124,6 +125,7 @@ public class IMob implements ICollidable {
     @Override
     public void tick() {
         moving = false;
+        pain = false;
     }
 
     @Override
@@ -156,7 +158,7 @@ public class IMob implements ICollidable {
     }
 
     private void bias() {
-        if (bias_angle >= 359.0f) {
+        if (bias_angle >= 360.0f) {
             bias_angle = 0.0f;
         } else {
             float angle_offset = bias_speed * _level._game._core._display.delta();
@@ -324,6 +326,11 @@ public class IMob implements ICollidable {
         if (health > health_maximum) {
             health = health_maximum;
         }
+        pain = true;
+    }
+    
+    public boolean pain() {
+        return pain;
     }
 
     public void heal(int amount) {

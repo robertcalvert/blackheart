@@ -20,7 +20,7 @@ import org.lwjgl.util.vector.Vector3f;
  *
  * @author rob
  */
-public class WallLiftPanel implements ICollidable {
+public final class WallLiftPanel implements ICollidable {
 
     public final Level _level;
     private final Vector3f position;

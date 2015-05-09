@@ -22,7 +22,7 @@ import org.lwjgl.util.vector.Vector3f;
  *
  * @author rob
  */
-public class MobMachinegun extends IMob {
+public final class MobMachinegun extends IMob {
 
     private final int health_maximum = 50;
     private boolean attacking;
@@ -87,6 +87,7 @@ public class MobMachinegun extends IMob {
                     IRemove = true;
                     state -= 1;
                     _level.objects_dynamic.add(new CollectableMachinegunAmmo(_level, camera()));
+                    _level.objects_dynamic.add(new FloorBlood(_level, position()));
                 }
             }
         } else {

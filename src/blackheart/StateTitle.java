@@ -22,7 +22,7 @@ import org.newdawn.slick.opengl.Texture;
  *
  * @author rob
  */
-public class StateTitle implements IState {
+public final class StateTitle implements IState {
 
     public final Core _core;
     private final String id = "TITLE";
@@ -138,11 +138,11 @@ public class StateTitle implements IState {
         _core._font.button.render_centred((int) button_play.getCenterX(),
                 (int) button_play.getCenterY(), play_text);
 
-        _core._font.copyrite.render(_core._display.width() - _core._font.copyrite.font().getWidth(About.copyrite),
-                _core._display.height() - _core._font.copyrite.font().getHeight(),
+        _core._font.copyrite.render(_core._display.width() - 5 - _core._font.copyrite.font().getWidth(About.copyrite),
+                _core._display.height() - 5 - _core._font.copyrite.font().getHeight(),
                 About.copyrite);
         String version_text = "Version " + About.version;
-        _core._font.copyrite.render(_core._display.width() - _core._font.copyrite.font().getWidth(version_text),
+        _core._font.copyrite.render(_core._display.width() - 5 - _core._font.copyrite.font().getWidth(version_text),
                 0,
                 version_text);
     }

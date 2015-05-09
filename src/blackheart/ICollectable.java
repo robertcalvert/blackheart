@@ -43,7 +43,7 @@ public class ICollectable implements ICollidable {
 
     @Override
     public boolean solid() {
-        return false;
+        return true;
     }
 
     @Override

@@ -21,7 +21,7 @@ import org.newdawn.slick.opengl.Texture;
  *
  * @author rob
  */
-public class StateTitleHelp implements IState {
+public final class StateTitleHelp implements IState {
 
     public final Core _core;
     private final String id = "TITLE_HELP";

@@ -20,7 +20,7 @@ package blackheart;
 public final class About {
     
     public static final String title = "blackheart";
-    public static final String version = "0.9.20130816";
+    public static final String version = "0.9.20130905";
     public static final String copyrite = "Copyright © 2013 Robert Calvert (flob)";
     
 }

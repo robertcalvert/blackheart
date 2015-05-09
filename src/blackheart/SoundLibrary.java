@@ -22,7 +22,7 @@ import org.newdawn.slick.openal.SoundStore;
  *
  * @author rob
  */
-public class SoundLibrary {
+public final class SoundLibrary {
 
     public final Audio level_gold;
     public final Audio level_pickup;
