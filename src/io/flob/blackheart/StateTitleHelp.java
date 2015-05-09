@@ -93,7 +93,7 @@ public final class StateTitleHelp implements IState {
         
         _core._font.copyrite.render_centred(_core._display.width() / 2,
                 _core._display.height() - _core._font.copyrite.font().getHeight(),
-                "Escape from prison, shot the bad guys, rescue the prisoners and collect the gold!");
+                "Escape from prison, shoot the bad guys, rescue the prisoners and collect the gold!");
     }
 
     private void render_buttons() {
