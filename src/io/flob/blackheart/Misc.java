@@ -39,7 +39,7 @@ public final class Misc {
             running_in_IDE = true;
         } else {
             System.setProperty("org.lwjgl.librarypath", base_path
-                    + "native/" + org.lwjgl.LWJGLUtil.getPlatformName());
+                    + "lib/native/" + org.lwjgl.LWJGLUtil.getPlatformName());
         }
     }
 
