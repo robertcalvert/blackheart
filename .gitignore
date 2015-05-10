@@ -1,0 +1,7 @@
+# Ant specific
+build/
+dist/
+
+# Netbeans specific
+build.xml
+nbproject/
