@@ -2,9 +2,11 @@
 
 ### Written for the [7dfps] challenge 2013
 
-This is blackheart, my attempt at an FPS.
+This is blackheart, my attempt at an FPS. It has been a great learning experience working on this project and I have had a lot of fun along the way (and a little stress). Sadly I did not have time to add all the features I would have liked :(
 
-Requires Java or Open JDK 1.7+ to run...
+Thank you for looking... I am off to enjoy a beer.
+
+Requires Java or Open JDK 1.7+ to play (It may work on 1.6 but I haven't tested!)
 
 ### Dependencies (Not included)
 
